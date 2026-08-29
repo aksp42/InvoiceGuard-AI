@@ -58,6 +58,11 @@ class Settings(BaseSettings):
     demo_user: str = "admin"
     demo_password: str = "admin123"
 
+    # --- Auto-seed (Phase 6.1: production readiness) ---
+    # When true and the database has no invoices, sample data is inserted once
+    # at startup. Existing data is NEVER overwritten.
+    auto_seed: bool = True
+
     @property
     def cors_origin_list(self) -> list[str]:
         """Parse the comma-separated origins string into a list."""

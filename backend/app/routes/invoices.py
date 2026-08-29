@@ -2,7 +2,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from backend.app.database import get_db
+from backend.app.database import get_db, read_guard
 from backend.app.models.invoice import Invoice
 
 router = APIRouter(prefix="/api", tags=["invoices"])
@@ -10,7 +10,9 @@ router = APIRouter(prefix="/api", tags=["invoices"])
 
 @router.get("/invoices")
 def list_invoices(db: Session = Depends(get_db)):
-    rows = db.query(Invoice).order_by(Invoice.invoice_date.desc()).all()
+    rows = read_guard(
+        lambda: db.query(Invoice).order_by(Invoice.invoice_date.desc()).all()
+    )
     return [
         {
             "invoice_id": i.invoice_id,

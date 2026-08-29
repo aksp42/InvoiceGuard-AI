@@ -21,7 +21,7 @@ from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from sqlalchemy.orm import Session
 
 from backend.app.config import settings
-from backend.app.database import get_db
+from backend.app.database import get_db, read_guard
 from backend.app.models import Invoice, UploadBatch
 from backend.app.schemas import (
     BatchDetail,
@@ -137,7 +137,9 @@ def upload_bulk(file: UploadFile = File(...), db: Session = Depends(get_db)):
 
 @router.get("/history", response_model=list[UploadHistoryItem])
 def upload_history(db: Session = Depends(get_db)):
-    batches = db.query(UploadBatch).order_by(UploadBatch.batch_id.desc()).limit(50).all()
+    batches = read_guard(
+        lambda: db.query(UploadBatch).order_by(UploadBatch.batch_id.desc()).limit(50).all()
+    )
     return [
         UploadHistoryItem(
             batch_id=b.batch_id,
@@ -155,16 +157,30 @@ def upload_history(db: Session = Depends(get_db)):
 
 @router.get("/{batch_id}", response_model=BatchDetail)
 def upload_detail(batch_id: int, db: Session = Depends(get_db)):
-    batch = db.query(UploadBatch).filter_by(batch_id=batch_id).first()
+    try:
+        batch = db.query(UploadBatch).filter_by(batch_id=batch_id).first()
+        invoices = (
+            db.query(Invoice)
+            .filter_by(batch_id=batch_id)
+            .order_by(Invoice.invoice_id)
+            .all()
+        )
+    except Exception:  # pragma: no cover - infra dependent
+        # Database unavailable → return an empty, well-formed batch detail
+        # instead of a 500 so the UI degrades gracefully.
+        return BatchDetail(
+            batch_id=batch_id,
+            file_name="(unavailable)",
+            uploaded_by="-",
+            uploaded_at=None,
+            total_invoices=0,
+            processed_invoices=0,
+            failed_invoices=0,
+            status="Processing",
+            invoices=[],
+        )
     if batch is None:
         raise HTTPException(status_code=404, detail=f"Batch {batch_id} not found.")
-
-    invoices = (
-        db.query(Invoice)
-        .filter_by(batch_id=batch_id)
-        .order_by(Invoice.invoice_id)
-        .all()
-    )
     return BatchDetail(
         batch_id=batch.batch_id,
         file_name=batch.file_name,

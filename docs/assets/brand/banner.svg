@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <!-- InvoiceGuard-AI Banner Concept
+       GitHub social preview (recommended upload size 1280x640).
+       Palette: Primary #0F172A, Accent #3B82F6, Success #22C55E.
+  -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1120"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3B82F6" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#22C55E" stop-opacity="0.08"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#60A5FA"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0 H0 V40" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background + subtle grid overlay -->
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#grid)"/>
+  <rect width="1280" height="640" fill="url(#glow)"/>
+
+  <!-- Faint radial accent -->
+  <circle cx="1040" cy="180" r="320" fill="#3B82F6" opacity="0.08"/>
+
+  <!-- Product mark -->
+  <g transform="translate(120,150) scale(3.4)">
+    <path d="M32 3 L54 10 V30 C54 44 45 54 32 61 C19 54 10 44 10 30 V10 Z"
+          fill="url(#accent)"/>
+    <g stroke="#fff" stroke-width="2" stroke-linecap="round">
+      <line x1="23" y1="24" x2="41" y2="24"/>
+      <line x1="23" y1="31" x2="41" y2="31"/>
+      <line x1="23" y1="38" x2="35" y2="38"/>
+    </g>
+    <polyline points="38,41 44,47 52,36" fill="none" stroke="#22C55E"
+              stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Headline -->
+  <text x="120" y="260" font-family="Segoe UI, Arial, sans-serif" font-size="64"
+        font-weight="700" fill="#F8FAFC">InvoiceGuard</text>
+  <text x="120" y="330" font-family="Segoe UI, Arial, sans-serif" font-size="40"
+        font-weight="400" fill="#94A3B8">AI-assisted invoice validation &amp; duplicate detection</text>
+
+  <!-- Taglines / feature chips -->
+  <g font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="600">
+    <g transform="translate(120,410)">
+      <rect width="270" height="52" rx="26" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+      <text x="135" y="33" text-anchor="middle" fill="#60A5FA">Rule-Based Validation</text>
+    </g>
+    <g transform="translate(420,410)">
+      <rect width="250" height="52" rx="26" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+      <text x="125" y="33" text-anchor="middle" fill="#22C55E">5-Level Duplicate AI</text>
+    </g>
+    <g transform="translate(700,410)">
+      <rect width="210" height="52" rx="26" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+      <text x="105" y="33" text-anchor="middle" fill="#F59E0B">Risk Scoring</text>
+    </g>
+  </g>
+
+  <!-- Footer tech line -->
+  <text x="120" y="540" font-family="Segoe UI, Arial, sans-serif" font-size="24"
+        fill="#64748B">FastAPI &nbsp;·&nbsp; React &nbsp;·&nbsp; MySQL &nbsp;·&nbsp; scikit-learn &nbsp;·&nbsp; Power BI</text>
+
+  <text x="120" y="600" font-family="Segoe UI, Arial, sans-serif" font-size="20"
+        fill="#475569">Report · Review · Pay with confidence</text>
+</svg>

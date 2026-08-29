@@ -24,7 +24,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.config import settings
 from backend.app.logging_config import setup_logging, get_logger
-from backend.app.database import init_db
+from backend.app.database import ensure_tables, check_connection, tables_ready, SessionLocal
+from backend.app.seed import maybe_seed, is_seeded
 from backend.app.routes import auth, upload, invoices, reports, validation, duplicates
 
 setup_logging(settings.log_level)
@@ -33,17 +34,31 @@ logger = get_logger()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Startup/shutdown lifecycle: log boot and initialise the database."""
+    """Startup/shutdown lifecycle: log boot, ensure DB tables, auto-seed if empty."""
     logger.info(
         "Starting %s v%s (%s environment)",
         settings.app_name,
         settings.app_version,
         settings.environment,
     )
+    # Production-readiness: create any missing tables (never crash on a gap),
+    # then offer automatic development seeding only when the DB is empty.
     try:
-        init_db()
-        logger.info("Database initialised")
-    except Exception as exc:  # pragma: no cover - depends on infra
+        ok = ensure_tables()
+        if not ok:
+            logger.warning("Database tables are not fully ready; read endpoints will return empty data.")
+        else:
+            logger.info("Database initialised (tables ready).")
+        # Auto-seed only touches an empty database; existing data is preserved.
+        try:
+            db = SessionLocal()
+            try:
+                maybe_seed(db)
+            finally:
+                db.close()
+        except Exception as exc:  # pragma: no cover - infra dependent
+            logger.warning("Seed step could not complete: %s", exc)
+    except Exception as exc:  # pragma: no cover - infra dependent
         logger.warning("Database unavailable at startup: %s. API runs; DB features disabled.", exc)
     yield
     logger.info("Shutting down %s", settings.app_name)
@@ -89,8 +104,37 @@ async def access_log(request: Request, call_next):
 
 @app.get("/health", tags=["health"])
 def health():
-    """Uptime / load-balancer health check."""
-    return {"status": "running", "service": settings.app_name}
+    """Uptime / load-balancer health check with database status.
+
+    Always returns HTTP 200 while the API process is alive. If the database is
+    unavailable the API keeps running and the reason is surfaced in the payload
+    (never a raw stack trace).
+    """
+    db_ok = check_connection()
+    ready = db_ok and tables_ready()
+    seed_flag = False
+    if db_ok:
+        try:
+            db = SessionLocal()
+            try:
+                seed_flag = is_seeded(db)
+            finally:
+                db.close()
+        except Exception:  # pragma: no cover - infra dependent
+            seed_flag = False
+
+    payload = {
+        "status": "running",
+        "service": settings.app_name,
+        "database": "connected" if db_ok else "unavailable",
+        "tables": "ready" if ready else "missing",
+        "seed_data": seed_flag,
+    }
+    if not db_ok:
+        payload["reason"] = "Database connection failed — check DATABASE_URL and that the server is running."
+    elif not ready:
+        payload["reason"] = "One or more required tables are missing — they are created automatically on startup."
+    return payload
 
 
 @app.get("/api/health", tags=["health"])

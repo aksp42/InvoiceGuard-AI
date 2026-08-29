@@ -30,4 +30,8 @@ def scan_batch_duplicates(batch_id: int, db: Session = Depends(get_db)):
 @router.get("", response_model=list[DuplicateFindingPair])
 def list_duplicates(db: Session = Depends(get_db)):
     """All detected duplicate pairs (deduplicated, one row per pair)."""
-    return duplicate_service.list_duplicate_pairs(db)
+    try:
+        return duplicate_service.list_duplicate_pairs(db)
+    except Exception:  # pragma: no cover - infra dependent
+        # Empty / unavailable database → empty list, not a 500.
+        return []
