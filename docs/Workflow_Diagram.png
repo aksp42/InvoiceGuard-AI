@@ -1,0 +1,3 @@
+Placeholder — replace with an architecture/workflow diagram:
+Upload (CSV/Excel) -> Rule-based validation -> ML anomaly detection (Isolation Forest)
+-> Combined risk score -> Status (Valid / Needs Review / High Risk / Duplicate) -> Downloadable report.

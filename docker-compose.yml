@@ -1,0 +1,37 @@
+# docker-compose.yml — (Future) containerised stack.
+# Intended services: frontend (React), api (FastAPI + uvicorn), db (MySQL).
+# Uncomment and adjust once the pieces are Docker-ised.
+
+# version: "3.9"
+
+# services:
+#   db:
+#     image: mysql:8.0
+#     environment:
+#       MYSQL_DATABASE: invoice_db
+#       MYSQL_ROOT_PASSWORD: root
+#     ports:
+#       - "3306:3306"
+#     volumes:
+#       - ./database/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+#       - ./database/seed_data.sql:/docker-entrypoint-initdb.d/02_seed.sql:ro
+#       - db_data:/var/lib/mysql
+
+#   api:
+#     build: ./backend
+#     environment:
+#       DATABASE_URL: mysql+pymysql://root:root@db/invoice_db
+#     ports:
+#       - "8000:8000"
+#     depends_on:
+#       - db
+
+#   frontend:
+#     build: ./frontend
+#     ports:
+#       - "5173:5173"
+#     depends_on:
+#       - api
+
+# volumes:
+#   db_data:

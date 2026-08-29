@@ -1,0 +1,39 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 3 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 5 0 R /Resources << /Font << /F1 6 0 R >> >> >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+5 0 obj
+<< /Length 601 >>
+stream
+BT /F1 10 Tf
+1 0 0 1 40 800 Tm (Invoice Error Detector | Database Design) Tj T*
+1 0 0 1 40 782 Tm (vendors: | vendor_id INT PK, vendor_name VARCHAR\(255\), gst_number VARCHAR\(32\)) Tj T*
+1 0 0 1 40 764 Tm (invoices: | invoice_id VARCHAR\(64\) PK, vendor_id FK, invoice_date DATE, total_amount DECIMAL\(12,2\), risk_score FLOAT, status VARCHAR\(32\)) Tj T*
+1 0 0 1 40 746 Tm (invoice_items: | item_id INT PK, invoice_id FK, product_name VARCHAR\(255\), quantity INT, unit_price DECIMAL\(12,2\)) Tj T*
+1 0 0 1 40 728 Tm (Relationships: | One Vendor -> Many Invoices; One Invoice -> Many Items) Tj T*
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000000315 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+967
+%%EOF

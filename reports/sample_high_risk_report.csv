@@ -1,0 +1,5 @@
+invoice_id,vendor_name,total_amount,status,risk_score
+INV-102,XYZ Supplies,1200,High Risk,60.0
+INV-101,ABC Traders,1180,Duplicate,100.0
+INV-104,Metro Electronics,15930,High Risk,60.0
+INV-109,Global Hardware,59000,High Risk,60.0

@@ -1,0 +1,4 @@
+Placeholder — replace with the real Power BI workbook (analytics/powerbi/Invoice_Dashboard.pbix).
+Build the dashboard described in docs/Project_Report.docx section 11, connecting to the MySQL
+database from database/schema.sql. Pages: Executive Overview, Vendor Analysis,
+Invoice Validation, Financial Insights.

@@ -1,0 +1,1 @@
+Placeholder — public asset folder for the Vite frontend (favicon, robots.txt, etc.).

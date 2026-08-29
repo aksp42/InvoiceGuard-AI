@@ -1,0 +1,45 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 3 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 5 0 R /Resources << /Font << /F1 6 0 R >> >> >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+5 0 obj
+<< /Length 865 >>
+stream
+BT /F1 10 Tf
+1 0 0 1 40 800 Tm (invoice_id | vendor_name | total_amount | status | risk_score) Tj T*
+1 0 0 1 40 782 Tm (INV-101 | ABC Traders | 1180 | Valid | 0.0) Tj T*
+1 0 0 1 40 764 Tm (INV-102 | XYZ Supplies | 1200 | High Risk | 60.0) Tj T*
+1 0 0 1 40 746 Tm (INV-101 | ABC Traders | 1180 | Duplicate | 100.0) Tj T*
+1 0 0 1 40 728 Tm (INV-104 | Metro Electronics | 15930 | High Risk | 60.0) Tj T*
+1 0 0 1 40 710 Tm (INV-105 | XYZ Supplies | 2478 | Valid | 17.9) Tj T*
+1 0 0 1 40 692 Tm (INV-106 | Global Hardware | 1180 | Valid | 29.0) Tj T*
+1 0 0 1 40 674 Tm (INV-107 | Metro Electronics | 5900 | Needs Review | 35.9) Tj T*
+1 0 0 1 40 656 Tm (INV-108 | Prime Stationery | 1416 | Valid | 6.3) Tj T*
+1 0 0 1 40 638 Tm (INV-109 | Global Hardware | 59000 | High Risk | 60.0) Tj T*
+1 0 0 1 40 620 Tm (INV-110 | Prime Stationery | 944 | Needs Review | 10.0) Tj T*
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000000315 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1231
+%%EOF

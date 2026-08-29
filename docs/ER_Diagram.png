@@ -1,0 +1,2 @@
+Placeholder — replace with an ER diagram of the schema in database/schema.sql:
+Vendors (1) -- (N) Invoices (1) -- (N) Invoice_Items.
